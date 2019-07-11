@@ -1,4 +1,4 @@
-# r-shiny-intro-workshop
+# Introduction to R Shiny
 Materials for the introduction to R Shiny Workshop
 
 
