@@ -24,10 +24,10 @@ iris <- merge(iris, pca, by=0, all=TRUE) %>% select(-one_of(c('Row.names'))) # M
 ui <- fluidPage(
   headerPanel('Iris k-means Clustering Tool'), 
   sidebarPanel(
-    selectInput(inputId = 'xcol', label = 'X Variable', choices = names(iris)[names(iris) != "Species"]), # Input widget for X-axis column from dataframe columns
-    selectInput(inputId = 'ycol', label = 'Y Variable', choices = names(iris)[names(iris) != "Species"], selected = names(iris)[[2]]),  # Input widget for Y-axis column from dataframe columns
-    sliderInput(inputId = 'clusters', label = 'Cluster count', value = 3, min = 1, max = 9),  # Input widget for number of clusters based on 1 to 9 integer range
-    radioButtons(inputId = "labels", label = "Cluster labels", choices = c("k-means" = "kmeans_label","Actual" = "actual_label")) # Radio button toggle widget
+    selectInput(inputId = 'xcol', label = 'X Variable', choices = names(iris)[names(iris) != "Species"]), # Input widget for X-axis column 
+    selectInput(inputId = 'ycol', label = 'Y Variable', choices = names(iris)[names(iris) != "Species"], selected = names(iris)[[2]]),  # Input widget for Y-axis column 
+    sliderInput(inputId = 'clusters', label = 'Cluster count', value = 3, min = 1, max = 9),  # Input widget for number of clusters 
+    radioButtons(inputId = "labels", label = "Cluster labels", choices = c("k-means" = "kmeans_label","Actual" = "actual_label")) # Radio button to toggle between clusters and actual labels
   ),
   mainPanel(
     plotOutput(outputId = 'xyplot') # Render plot output
@@ -39,7 +39,7 @@ ui <- fluidPage(
 # Construct the server object
 server <- function(input, output, session) {
   
-  # Reactives that subsets down to data selected from the input widget
+  # Reactives that contain data selected from the input widgets
   selectedData <- reactive({iris[, c(input$xcol, input$ycol)]})
   selectedX <- reactive({iris[, c(input$xcol)]})
   selectedY <- reactive({iris[, c(input$ycol)]})
@@ -52,7 +52,7 @@ server <- function(input, output, session) {
   # Reactive value that contains the legend's cluster groupings
   grouping <- reactiveValues()
   
-  # Observe event to adjust the number of clusters and update the radio button to reflect selection
+  # Observe event to adjust the number of clusters (and update the radio button to reflect selection)
   observeEvent(input$clusters, {
     if(input$labels=="kmeans_label" | (input$labels=="actual_label" & input$clusters != 3)) { 
       grouping$data <- as.factor(clusters()$cluster) # Assign k-means clusters to data
@@ -60,7 +60,7 @@ server <- function(input, output, session) {
     updateRadioButtons(session, inputId = 'labels', selected = if(length(unique(grouping$data)) == 3 & input$labels=="actual_label") {"actual_label"} else {"kmeans_label"} ) # Update radio button
   })
   
-  # Observe event to change between 'k-means' and 'Actual' radio buttons and update the slider if 'Actual' is selected
+  # Observe event to change between 'k-means' and 'Actual' radio buttons (and update the slider if 'Actual' is selected)
   observeEvent(input$labels, {
     if(input$labels=="actual_label") {grouping$data <- iris$Species} # Assign actual species clusters to data
     else { grouping$data <- as.factor(clusters()$cluster) } # Assign k-means clusters to data
@@ -70,13 +70,13 @@ server <- function(input, output, session) {
   # Render a plot of the reactive data as an output object
   output$xyplot <- renderPlot({
     # Create X-Y scatter plot
-    ggplot(data=iris) + # Raw iris dataset
+    ggplot(data=iris) + # Iris dataset
       geom_point(aes_string(x=selectedX(), # Reactive for x input widget
                             y=selectedY(), # Reactive for y input widget
                             color=grouping$data), # Reactive for legend's cluster groupings
                  size = 4, alpha = .8) + 
       scale_color_manual(values = color_list, name = NULL, guide = guide_legend(nrow = 1)) + # Assign color palette from global
-      xlab(input$xcol) + ylab(input$ycol) +
+      xlab(input$xcol) + ylab(input$ycol) + #
       theme_minimal() +
       theme(text = element_text(size=20),
             legend.position = 'bottom')
