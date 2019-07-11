@@ -17,7 +17,7 @@ install.packages('dplyr')
 To follow along open the [slides available here.](https://docs.google.com/presentation/d/1fuUIlfagMGkDzUlRQxjIImjY7mxgqqmS335MYzTqNbc/edit?usp=sharing)
 
 ## Presenter
-Nicholas Marchio
+Nicholas Marchio (contact: nmarchio at uchicago.edu)
 
 ## Acknowledgements
 The presentation and portions of code were based on RStudio tutorial [materials](https://shiny.rstudio.com/tutorial/) developed by Garrett Grolemund.
