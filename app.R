@@ -13,6 +13,7 @@ library(ggplot2)
 library(dplyr)
 
 color_list <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3","#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999") # Color hexes
+
 data(iris) # Load dataframe
 pca <- as.data.frame(prcomp(log(iris[, 1:4]),center = TRUE,scale. = TRUE)[["x"]]) %>% select(PC1, PC2) # Run PCA
 iris <- merge(iris, pca, by=0, all=TRUE) %>% select(-one_of(c('Row.names'))) # Merge iris with components
@@ -21,7 +22,7 @@ iris <- merge(iris, pca, by=0, all=TRUE) %>% select(-one_of(c('Row.names'))) # M
 
 # Construct the user interface object
 ui <- fluidPage(
-  headerPanel('Iris k-means clustering'), 
+  headerPanel('Iris k-means Clustering Tool'), 
   sidebarPanel(
     selectInput(inputId = 'xcol', label = 'X Variable', choices = names(iris)[names(iris) != "Species"]), # Input widget for X-axis column from dataframe columns
     selectInput(inputId = 'ycol', label = 'Y Variable', choices = names(iris)[names(iris) != "Species"], selected = names(iris)[[2]]),  # Input widget for Y-axis column from dataframe columns
@@ -76,16 +77,15 @@ server <- function(input, output, session) {
   # Render a plot of the input reactive data as an output
   output$xyplot <- renderPlot({
     par(mar = c(5.1, 4.1, 0, 1)) # Graph position
+    
     # Create X-Y scatter plot
     ggplot(data=iris) + # Raw iris dataset
       geom_point(aes_string(x=selectedX(), # Reactive for x input widget
                             y=selectedY(), # Reactive for y input widget
                             color=grouping$data), # Reactive for legend's cluster groupings
-                 size = 4,
-                 alpha = .8) + 
-      scale_color_manual(values = color_list, name = 'Clusters') + # Assign color palette from global
-      xlab(input$xcol) + 
-      ylab(input$ycol) +
+                 size = 4, alpha = .8) + 
+      scale_color_manual(values = color_list, name = NULL, guide = guide_legend(nrow = 1)) + # Assign color palette from global
+      xlab(input$xcol) + ylab(input$ycol) +
       theme_minimal() +
       theme(text = element_text(size=20),
             legend.position = 'bottom')
