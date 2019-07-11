@@ -1,7 +1,7 @@
 # Introduction to R Shiny
 Materials for the introduction to R Shiny Workshop
 
-## How to run app in 5 steps:
+## How to run an app in 5 steps:
 1. Install R [here](https://cran.r-project.org/).
 2. Install R Studio [here](https://www.rstudio.com/products/rstudio/download/).
 3. Open R Studio and install necessary packages:
