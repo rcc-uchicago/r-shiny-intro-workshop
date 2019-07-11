@@ -1,6 +1,8 @@
 # Demo of k-means clustering app
 # Created by Nicholas Marchio
 # Modified from RStudio script here https://www.dropbox.com/s/rjt6g3ctdqvihat/shiny-quickstart-1.zip
+# Code here: https://github.com/rcc-uchicago/r-shiny-intro-workshop
+# Slides here: https://docs.google.com/presentation/d/1fuUIlfagMGkDzUlRQxjIImjY7mxgqqmS335MYzTqNbc/edit
 
 # Global environment ------------------------------------------------------
 # Put all code that runs on startup in the Global i.e. libraries, functions, and pre-loaded data
@@ -27,9 +29,7 @@ ui <- fluidPage(
     sliderInput(inputId = 'clusters', label = 'Cluster count', value = 3, min = 1, max = 9),  # Input widget for number of clusters based on 1 to 9 integer range
     radioButtons(inputId = "labels", label = "Cluster labels", choices = c("k-means" = "kmeans_label","Actual" = "actual_label")) 
   ),
-  mainPanel(
-    plotOutput(outputId = 'xyplot') 
-  )
+  mainPanel(plotOutput(outputId = 'xyplot') )
 )
 
 # Server ------------------------------------------------------------------
