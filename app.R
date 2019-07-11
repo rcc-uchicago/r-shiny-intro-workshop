@@ -6,17 +6,16 @@
 
 # Global environment ------------------------------------------------------
 # Put all code that runs on startup in the Global i.e. libraries, functions, and pre-loaded data
-# Load packages
-library(shiny)
+
+library(shiny) # Load packages
 library(tidyr)
 library(ggplot2)
 library(dplyr)
 
-# Color hexes
-color_list <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3","#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999")
-
-# Load dataframe
-data(iris) 
+color_list <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3","#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999") # Color hexes
+data(iris) # Load dataframe
+pca <- as.data.frame(prcomp(log(iris[, 1:4]),center = TRUE,scale. = TRUE)[["x"]]) %>% select(PC1, PC2) # Run PCA
+iris <- merge(iris, pca, by=0, all=TRUE) %>% select(-one_of(c('Row.names'))) # Merge iris with components
 
 # User Interface ----------------------------------------------------------
 
@@ -29,7 +28,9 @@ ui <- fluidPage(
     sliderInput(inputId = 'clusters', label = 'Cluster count', value = 3, min = 1, max = 9),  # Input widget for number of clusters based on 1 to 9 integer range
     radioButtons(inputId = "labels", label = "Cluster labels", choices = c("k-means" = "kmeans_label","Actual" = "actual_label")) 
   ),
-  mainPanel(plotOutput(outputId = 'xyplot') )
+  mainPanel(
+    plotOutput(outputId = 'xyplot') 
+  )
 )
 
 # Server ------------------------------------------------------------------
@@ -74,9 +75,7 @@ server <- function(input, output, session) {
   
   # Render a plot of the input reactive data as an output
   output$xyplot <- renderPlot({
-    
     par(mar = c(5.1, 4.1, 0, 1)) # Graph position
-    
     # Create X-Y scatter plot
     ggplot(data=iris) + # Raw iris dataset
       geom_point(aes_string(x=selectedX(), # Reactive for x input widget
@@ -91,7 +90,6 @@ server <- function(input, output, session) {
       theme(text = element_text(size=20),
             legend.position = 'bottom')
   })
-
 }
 
 # Shiny Object ------------------------------------------------------------
