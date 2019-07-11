@@ -1,12 +1,9 @@
 # Demo of k-means clustering app
-
 # Created by Nicholas Marchio
 # Modified from RStudio script here https://www.dropbox.com/s/rjt6g3ctdqvihat/shiny-quickstart-1.zip
 
 # Global environment ------------------------------------------------------
-
 # Put all code that runs on startup in the Global i.e. libraries, functions, and pre-loaded data
-
 # Load packages
 library(shiny)
 library(tidyr)
