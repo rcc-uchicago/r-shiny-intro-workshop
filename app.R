@@ -5,7 +5,7 @@
 # Slides here: https://docs.google.com/presentation/d/1fuUIlfagMGkDzUlRQxjIImjY7mxgqqmS335MYzTqNbc/edit
 
 # Global environment ------------------------------------------------------
-# Put all code that runs on startup in the Global i.e. libraries, functions, and pre-loaded data
+# Put all code that runs on startup in the Global i.e. libraries, functions, pre-loaded data, etc.
 
 library(shiny) # Load packages
 library(tidyr)
@@ -16,7 +16,7 @@ color_list <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3","#FF7F00", "#FFFF33",
 
 data(iris) # Load dataframe
 pca <- as.data.frame(prcomp(log(iris[, 1:4]),center = TRUE,scale. = TRUE)[["x"]]) %>% select(PC1, PC2) # Run PCA
-iris <- merge(iris, pca, by=0, all=TRUE) %>% select(-one_of(c('Row.names'))) # Merge iris with components
+iris <- merge(iris, pca, by=0, all=TRUE) %>% select(-one_of(c('Row.names'))) # Merge iris with 2 components
 
 # User Interface ----------------------------------------------------------
 
@@ -27,7 +27,7 @@ ui <- fluidPage(
     selectInput(inputId = 'xcol', label = 'X Variable', choices = names(iris)[names(iris) != "Species"]), # Input widget for X-axis column from dataframe columns
     selectInput(inputId = 'ycol', label = 'Y Variable', choices = names(iris)[names(iris) != "Species"], selected = names(iris)[[2]]),  # Input widget for Y-axis column from dataframe columns
     sliderInput(inputId = 'clusters', label = 'Cluster count', value = 3, min = 1, max = 9),  # Input widget for number of clusters based on 1 to 9 integer range
-    radioButtons(inputId = "labels", label = "Cluster labels", choices = c("k-means" = "kmeans_label","Actual" = "actual_label")) 
+    radioButtons(inputId = "labels", label = "Cluster labels", choices = c("k-means" = "kmeans_label","Actual" = "actual_label")) # Radio button toggle widget
   ),
   mainPanel(
     plotOutput(outputId = 'xyplot') 
@@ -59,7 +59,7 @@ server <- function(input, output, session) {
   # Reactive value that contains the legend's cluster groupings
   grouping <- reactiveValues()
 
-  # Observe event to toggle the number of clusters and update the legend's cluster groupings
+  # Observe event to adjust the number of clusters and update the radio button
   observeEvent(input$clusters, {
     if(input$labels=="kmeans_label" | (input$labels=="actual_label" & input$clusters != 3)) { 
       grouping$data <- as.factor(clusters()$cluster) # Assign k-means clusters to data
@@ -67,7 +67,7 @@ server <- function(input, output, session) {
     updateRadioButtons(session, inputId = 'labels', selected = if(length(unique(grouping$data)) == 3 & input$labels=="actual_label") {"actual_label"} else {"kmeans_label"} ) # Update radio button
   })
   
-  # Observe event to toggle the radio buttons and update the legend's categorical data 
+  # Observe event to change between 'k-means' and 'Actual' and update the slider
   observeEvent(input$labels, {
     if(input$labels=="actual_label") {grouping$data <- iris$Species} # Assign actual species clusters to data
     else { grouping$data <- as.factor(clusters()$cluster) } # Assign k-means clusters to data
