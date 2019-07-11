@@ -12,6 +12,6 @@ install.packages('ggplot2')
 install.packages('dplyr')
 ```
 4. Copy [app.R]('https://raw.githubusercontent.com/rcc-uchicago/r-shiny-intro-workshop/master/app.R') code into new R Script.
-5. Click 'Run App'.
+5. Click `Run App`.
 
 To follow along open the [slides available here.](https://docs.google.com/presentation/d/1fuUIlfagMGkDzUlRQxjIImjY7mxgqqmS335MYzTqNbc/edit?usp=sharing)
