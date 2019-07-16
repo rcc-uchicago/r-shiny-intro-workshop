@@ -26,7 +26,7 @@ library(rsconnect)
 #                           token='user_token',
 #                           secret='user_secret')
 
-# Deloy app (make sure to put the app.R file in a R Project directory called 'intro-to-shiny-project')
+# Deloy app (make sure to put the app.R file in a local R Project directory called 'intro-to-shiny-project')
 rsconnect::deployApp('~/intro-to-shiny-project')
 
 # The web link to the app automatically launches in your browser
