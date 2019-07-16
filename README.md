@@ -13,7 +13,7 @@ install.packages('tidyr')
 install.packages('ggplot2')
 install.packages('dplyr')
 ```
-4. Copy [app.R]('https://raw.githubusercontent.com/rcc-uchicago/r-shiny-intro-workshop/master/app.R') code into new R Script.
+4. Copy [app.R](https://raw.githubusercontent.com/rcc-uchicago/r-shiny-intro-workshop/master/app.R) code into new R Script.
 5. Click `Run App`.
 
 And to deploy the app on [shinyapps.io](https://www.shinyapps.io/) run the following line of code:
