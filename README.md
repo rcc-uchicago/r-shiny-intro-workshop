@@ -31,7 +31,7 @@ rsconnect::deployApp('~/intro-to-shiny-project')
 
 # The web link to the deployed app will automatically launch in your browser
 ```
-To display the app alongside the code, run it in 'showcase' mode using this function:
+To display the app alongside the code use the following function:
 ```
 runApp(display.mode = "showcase")
 ```
