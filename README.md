@@ -1,7 +1,7 @@
 # Introduction to R Shiny
 Materials for the introduction to R Shiny Workshop
 
-To follow along open the [slides here.](https://docs.google.com/presentation/d/1fuUIlfagMGkDzUlRQxjIImjY7mxgqqmS335MYzTqNbc/edit?usp=sharing)
+To follow along open the [slides here.](https://docs.google.com/presentation/d/1fuUIlfagMGkDzUlRQxjIImjY7mxgqqmS335MYzTqNbc/edit?usp=sharing) Here is a [gallery](https://shiny.rstudio.com/gallery/) of Shiny app examples. 
 
 ## How to run the Shiny app in 5 steps:
 1. Install R [here](https://cran.r-project.org/).
@@ -30,6 +30,10 @@ library(rsconnect)
 rsconnect::deployApp('~/intro-to-shiny-project')
 
 # The web link to the app automatically launches in your browser
+```
+To help with debugging the app run it in 'showcase' mode using this function:
+```
+runApp(display.mode = "showcase")
 ```
 
 ## Author
