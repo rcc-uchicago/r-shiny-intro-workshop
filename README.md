@@ -16,8 +16,7 @@ install.packages('dplyr')
 4. Copy [app.R]('https://raw.githubusercontent.com/rcc-uchicago/r-shiny-intro-workshop/master/app.R') code into new R Script.
 5. Click `Run App`.
 
-## To deploy:
-1. Run 
+And to deploy the app, run the following:
 ```
 # install.packages('rsconnect')
 library(rsconnect)
