@@ -16,6 +16,23 @@ install.packages('dplyr')
 4. Copy [app.R]('https://raw.githubusercontent.com/rcc-uchicago/r-shiny-intro-workshop/master/app.R') code into new R Script.
 5. Click `Run App`.
 
+## To deploy:
+1. Run 
+```
+# install.packages('rsconnect')
+library(rsconnect)
+
+# Set up account with shinyapps.io and run the following:
+# rsconnect::setAccountInfo(name='nmarchio',
+#                           token='user_token',
+#                           secret='user_secret')
+
+# Deloy app (make sure to put the app.R file in a R Project directory)
+rsconnect::deployApp('/Users/nmarchio/Desktop/Projects/Workshops/r-shiny-workshop/intro-to-shiny-project')
+
+# The link to the app automatically launches, for example: https://nmarchio.shinyapps.io/intro-to-shiny-project/
+```
+
 ## Author
 Nicholas Marchio (contact: nmarchio at uchicago.edu)
 
