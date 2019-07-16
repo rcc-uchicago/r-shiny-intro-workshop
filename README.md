@@ -16,20 +16,20 @@ install.packages('dplyr')
 4. Copy [app.R]('https://raw.githubusercontent.com/rcc-uchicago/r-shiny-intro-workshop/master/app.R') code into new R Script.
 5. Click `Run App`.
 
-And to deploy the app it is literally one line of code:
+And to deploy the app on [shinyapps.io](https://www.shinyapps.io/) run the following line of code:
 ```
 # install.packages('rsconnect')
 library(rsconnect)
 
-# Set up account with shinyapps.io and run the following:
+# First, create an account on shinyapps.io and run the following:
 # rsconnect::setAccountInfo(name='user_name',
 #                           token='user_token',
 #                           secret='user_secret')
 
-# Deloy app (make sure to put the app.R file in a local R Project directory called 'intro-to-shiny-project')
+# Second, deloy app (make sure to put the app.R file in a local R Project directory called 'intro-to-shiny-project')
 rsconnect::deployApp('~/intro-to-shiny-project')
 
-# The web link to the app automatically launches in your browser
+# The web link to the deployed app will automatically launch in your browser
 ```
 To display the app alongside the code, run it in 'showcase' mode using this function:
 ```
