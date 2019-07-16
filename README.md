@@ -22,14 +22,14 @@ And to deploy the app, run the following:
 library(rsconnect)
 
 # Set up account with shinyapps.io and run the following:
-# rsconnect::setAccountInfo(name='nmarchio',
+# rsconnect::setAccountInfo(name='user_name',
 #                           token='user_token',
 #                           secret='user_secret')
 
-# Deloy app (make sure to put the app.R file in a R Project directory)
-rsconnect::deployApp('/Users/nmarchio/Desktop/Projects/Workshops/r-shiny-workshop/intro-to-shiny-project')
+# Deloy app (make sure to put the app.R file in a R Project directory called 'intro-to-shiny-project')
+rsconnect::deployApp('~/intro-to-shiny-project')
 
-# The link to the app automatically launches, for example: https://nmarchio.shinyapps.io/intro-to-shiny-project/
+# The web link to the app automatically launches in your browser
 ```
 
 ## Author
